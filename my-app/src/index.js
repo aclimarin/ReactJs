@@ -5,34 +5,183 @@ import './index.css';
 
 //estudar funções callback
 
-class Toggle extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { isToggleOn: true };
-
-    // Aqui utilizamos o `bind` para que o `this` funcione dentro da nossa callback
-    this.handleClick = this.handleClick.bind(this);
+function WaringBanner(props){
+  if (!props.warn){
+    return null;
   }
 
-  handleClick() {
+  return (
+    <div className='warning'>
+      <p>Warning!</p> 
+    </div>
+  );
+}
+
+class Page extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {showWarning: true};
+    this.handleToggleClick = this.handleToggleClick.bind(this);
+  }
+
+  handleToggleClick(){
     this.setState(state => ({
-      isToggleOn: !state.isToggleOn
+      showWarning: !state.showWarning
     }));
   }
 
-  render() {
-    return (
-      <button onClick={this.handleClick}>
-        {this.state.isToggleOn ? 'ON' : 'OFF'}
-      </button>
+  render(){
+    return(
+      <div>
+        <WaringBanner warn={this.state.showWarning} />
+        <button onClick={this.handleToggleClick}>
+          {this.state.showWarning ? 'Hide' : 'Show'}
+        </button>
+      </div>
     );
   }
 }
 
 ReactDOM.render(
-  <Toggle />,
+  <Page />,
   document.getElementById('root')
-);
+)
+
+// function Mailbox(props){
+//   const unreadMessages = props.unreadMessages;
+//   return (
+//     <div>
+//       <h1>Hello!</h1>
+//       {
+//         unreadMessages.length > 0 &&
+//         <h2>
+//           You have {unreadMessages.length} unread messages.
+//         </h2>
+//       }
+//     </div>
+//   );
+// }
+
+// const messages = ['React', 'Re: React', 'Re:Re:React'];
+// ReactDOM.render(
+//   <Mailbox unreadMessages={messages} />,
+//   document.getElementById('root')
+// );
+
+
+// function LoginButton(props){
+//   return (
+//     <button onClick={props.onClick}>
+//       Login
+//     </button>
+//   );
+// }
+
+// function LogoutButton(props){
+//   return (
+//     <button onClick={props.onClick}>
+//       Logout
+//     </button>
+//   );
+// }
+
+// class LoginControl extends React.Component {
+//   constructor(props){
+//     super(props);
+//     this.handleLoginClick = this.handleLoginClick.bind(this);
+//     this.handleLogoutClick = this.handleLogoutClick.bind(this);
+//     this.state = {isLoggedIn: false};
+//   }
+
+//   handleLoginClick(){
+//     this.setState({isLoggedIn: true});
+//   }
+
+//   handleLogoutClick(){
+//     this.setState({isLoggedIn: false});
+//   }
+
+//   render() {
+//     const isLoggedIn = this.state.isLoggedIn;
+//     return(
+//       <div>
+//         {isLoggedIn ? <LogoutButton onClick={this.handleLogoutClick} />
+//         : <LoginButton onClick={this.handleLoginClick} />
+//         }
+//       </div>
+//     );
+//     // let button;
+//     // if (isLoggedIn){
+//     //   button = <LogoutButton onClick={this.handleLogoutClick} />
+//     // }else{
+//     //   button = <LoginButton onClick={this.handleLoginClick} />
+//     // }
+
+//     // return(
+//     //   <div>
+//     //     <Greeting isLoggedIn={isLoggedIn} />
+//     //     {button}
+//     //   </div>
+//     // )
+//   }
+// }
+
+// function UserGreeting(props){
+//   return <h1>Welcome back!</h1>
+// }
+
+// function GuestGreeting(props){
+//   return <h1>Please sing up.</h1>
+// }
+
+// function Greeting(props){
+//   const isLoggedIn = props.isLoggedIn;
+
+//   if(isLoggedIn){
+//     return <UserGreeting />
+//   }
+//   return <GuestGreeting />
+  
+// }
+
+// ReactDOM.render(
+//   <LoginControl />,
+//   document.getElementById('root')
+// )
+
+// ReactDOM.render(
+//   <Greeting isLoggedIn={false} />,
+//   document.getElementById('root')
+// );
+
+// class Toggle extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = { isToggleOn: true };
+
+//     // Aqui utilizamos o `bind` para que o `this` funcione dentro da nossa callback
+//     this.handleClick = this.handleClick.bind(this);
+//   }
+
+//   handleClick() {
+//     this.setState(state => ({
+//       isToggleOn: !state.isToggleOn
+//     }));
+//   }
+
+//   render() {
+//     return (
+//       <button onClick={this.handleClick}>
+//         {this.state.isToggleOn ? 'ON' : 'OFF'}
+//       </button>
+//     );
+//   }
+// }
+
+// ReactDOM.render(
+//   <Toggle />,
+//   document.getElementById('root')
+// );
 
 
 // class Clock extends React.Component{
