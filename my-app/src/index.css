@@ -2,10 +2,6 @@
     color: crimson;
 }
 
-p{
-    font-family: Arial, Helvetica, sans-serif;
-}
-
 div {
     width: 60%;
     text-align: center;
@@ -15,9 +11,9 @@ div {
     
 }
 
-h1, h2, h3, h4, h5, h6{
+h1, h2, h3, h4, h5, h6, p, li{
     font-family: Arial, Helvetica, sans-serif;
-    /* color: #3d403e; */
+    
     
 }
 

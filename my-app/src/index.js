@@ -5,47 +5,118 @@ import './index.css';
 
 //estudar funções callback
 
-function WaringBanner(props){
-  if (!props.warn){
-    return null;
-  }
+function Blog(props){
+  const sidebar = (
+    <ul>
+      {props.posts.map(
+        (post) => 
+        <li key={post.id}>
+          {post.title}
+        </li>
+        )}
+    </ul>
+  );
 
-  return (
-    <div className='warning'>
-      <p>Warning!</p> 
+  const content = props.posts.map((post) =>
+        <div key={post.id}>
+          <h3>{post.title}</h3>
+          <p>{post.content}</p>
+        </div>
+  );
+
+  return(
+    <div>
+      {sidebar}
+      <hr />
+      {content}
     </div>
   );
 }
 
-class Page extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {showWarning: true};
-    this.handleToggleClick = this.handleToggleClick.bind(this);
-  }
-
-  handleToggleClick(){
-    this.setState(state => ({
-      showWarning: !state.showWarning
-    }));
-  }
-
-  render(){
-    return(
-      <div>
-        <WaringBanner warn={this.state.showWarning} />
-        <button onClick={this.handleToggleClick}>
-          {this.state.showWarning ? 'Hide' : 'Show'}
-        </button>
-      </div>
-    );
-  }
+function ListItem(props){
+  return <li>{props.value}</li>;
 }
 
-ReactDOM.render(
-  <Page />,
-  document.getElementById('root')
-)
+function NumberList(props){
+  const numbers = props.numbers;
+  return(
+    <ul>
+      {numbers.map((number) =>
+        <ListItem key={number.toString()} value={number} />
+      )}
+    </ul>
+  );
+
+
+
+  // const listItems = numbers.map((number) => 
+  //   <ListItem key={number.toString()} value={number}/>);
+  // return (
+  //   <ul>{listItems}</ul>
+  // );
+}
+
+const posts = [
+  {id: 1, title:'Hello World', content:'Welcome to learning ReactJs'},
+  {id: 2, title:'Instalation', content:'You can install react from npm'}
+];
+
+// ReactDOM.render(
+//   <Blog posts={posts} />,
+//   document.getElementById('root')
+// );
+
+
+
+
+
+// const numbers = [1, 2, 4, 5, 8, 9]
+// ReactDOM.render(
+//   <NumberList numbers={numbers}/>,
+//   document.getElementById('root')
+// );
+
+// function WaringBanner(props){
+//   if (!props.warn){
+//     return null;
+//   }
+
+//   return (
+//     <div className='warning'>
+//       <p>Warning!</p> 
+//     </div>
+//   );
+// }
+
+// class Page extends React.Component {
+//   constructor(props){
+//     super(props);
+//     this.state = {showWarning: true};
+//     this.handleToggleClick = this.handleToggleClick.bind(this);
+//   }
+
+//   handleToggleClick(){
+//     this.setState(state => ({
+//       showWarning: !state.showWarning
+//     }));
+//   }
+
+//   render(){
+//     return(
+//       <div>
+//         <WaringBanner warn={this.state.showWarning} />
+//         <button onClick={this.handleToggleClick}>
+//           {this.state.showWarning ? 'Hide' : 'Show'}
+//         </button>
+//       </div>
+//     );
+//   }
+// }
+
+// ReactDOM.render(
+//   <Page />,
+//   document.getElementById('root')
+// )
 
 // function Mailbox(props){
 //   const unreadMessages = props.unreadMessages;
