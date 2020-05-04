@@ -61,10 +61,10 @@ const posts = [
   {id: 2, title:'Instalation', content:'You can install react from npm'}
 ];
 
-// ReactDOM.render(
-//   <Blog posts={posts} />,
-//   document.getElementById('root')
-// );
+ReactDOM.render(
+  <Blog posts={posts} />,
+  document.getElementById('root')
+);
 
 
 
