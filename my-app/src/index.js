@@ -5,109 +5,206 @@ import './index.css';
 
 // React Developer Tools
 
-function BoilingVeredict(props){
-  if (props.celsius >= 100){
-    return <p>A água ferveria.</p>
-  }
-  return <p>A água não ferveria</p>
+// function SplitPane(props){
+//   return(
+//     <div className="SplitPane">
+//     <div className="SplitPane-left">
+//       {props.left}
+//     </div>
+//     <div className="SplitPane-right">
+//       {props.right}
+//     </div>
+//   </div>
+//   );  
+// }
+
+// function Contacts() {
+//   return <div className="Contacts" />;
+// }
+
+// function Chat() {
+//   return <div className="Chat" />;
+// }
+
+// function App(){
+//   return (
+//     <SplitPane left={<Contacts />} right={<Chat />} />
+//   );
+// }
+
+// ReactDOM.render(
+//   <App />,
+//   document.getElementById('root')
+// );
+
+function FancyBorder(props){
+  return(
+    <div className={'FancyBorder FancyBorder-' + props.color} >
+      {props.children}
+    </div> 
+  );
 }
 
-function toCelsius(fahrenheit) {
-  return (fahrenheit - 32) * 5/9;
+function Dialog(props){
+  return(
+    <FancyBorder color="blue">
+      <h1 className="Dialog-title">
+        {props.title}
+      </h1>
+      <p className="Dialog-messages">
+        {props.message}
+      </p>
+      {props.children}
+    </FancyBorder>
+  );
 }
 
-function toFahrenheit(celsius){
-  return (celsius * 9/5) + 32;
-}
-
-function tryConvert(temperature, convert){
-  const input = parseFloat(temperature);
-  if (Number.isNaN(input)){
-    return '';
-  }
-
-  const output = convert(input);
-  const rounded = Math.round(output * 1000) /1000;
-
-  return rounded.toString();
-}
-
-const scaleNames ={
-  c: 'Celsius',
-  f: 'Fahrenheit'
-};
-
-class TemperatureInput extends React.Component {
+class SingnUpDialog extends React.Component {
   constructor(props){
-    super(props);
+    super(props)
+
     this.handleChange = this.handleChange.bind(this);
+    this.handleSignUp = this.handleSignUp.bind(this);
+    this.state = {login: ''};
   }
-
-  handleChange(e) {
-    this.props.onTemperatureChange(e.target.value);
-    console.log(e);
-  }
-
-  render() {
-    const temperature = this.props.temperature;
-    const scale = this.props.scale;
-    return (
-      <fieldset>
-        <legend>Informe a temperatura em {scaleNames[scale]}:</legend>
-        <input value={temperature} onChange={this.handleChange} />
-      </fieldset>
-    )
-  }
-}
-
-class Calculator extends React.Component {
-constructor(props){
-  super(props);
-  this.handleCelsiusChange = this.handleCelsiusChange.bind(this);
-  this.handleFahrenheintChange = this.handleFahrenheintChange.bind(this);
-  this.state= {temperature: '', scale: 'c'};
-}
-
-handleCelsiusChange(temperature){
-  this.setState({scale: 'c', temperature});
-}
-
-handleFahrenheintChange(temperature){
-  this.setState({scale: 'f', temperature});
-}
 
   render(){
-    const scale = this.state.scale;
-    const temperature = this.state.temperature;
-    
-    const celsius = scale === 'f' ?
-      tryConvert(temperature, toCelsius) : temperature;
-    const fahrenheit = scale === 'c' ?
-      tryConvert(temperature, toFahrenheit) : temperature;
-
     return(
-      <div>
-        <TemperatureInput 
-          scale="c" 
-          temperature={celsius}
-          onTemperatureChange={this.handleCelsiusChange}
-          />
-        <br />
-        <TemperatureInput 
-          scale="f" 
-          temperature={fahrenheit}
-          onTemperatureChange={this.handleFahrenheintChange}
-        />
-        <BoilingVeredict celsius={parseFloat(celsius)} />
-      </div>
+      <Dialog 
+        title="Programa de Exploração de Marte"
+        message="Como gostaria de ser chamado?"
+        >
+          <input value={this.state.login} onChange={this.handleChange} />
+          <button onClick={this.handleSignUp} >
+            Cadastrar-se
+          </button>
+        </Dialog>
     );
   }
+
+  handleChange(e){
+    this.setState({login: e.target.value});
+  }
+
+  handleSignUp(){
+    alert(`Bem-vindo a bordo, ${this.state.login}` )
+  }
+}
+
+function WelcomeDialog(){
+  return(
+    <Dialog title="Bem vindo" message="Obrigado por nos visitar" />
+  );
 }
 
 ReactDOM.render(
-  <Calculator />,
+  <SingnUpDialog />,
   document.getElementById('root')
 );
+
+// function BoilingVeredict(props){
+//   if (props.celsius >= 100){
+//     return <p>A água ferveria.</p>
+//   }
+//   return <p>A água não ferveria</p>
+// }
+
+// function toCelsius(fahrenheit) {
+//   return (fahrenheit - 32) * 5/9;
+// }
+
+// function toFahrenheit(celsius){
+//   return (celsius * 9/5) + 32;
+// }
+
+// function tryConvert(temperature, convert){
+//   const input = parseFloat(temperature);
+//   if (Number.isNaN(input)){
+//     return '';
+//   }
+
+//   const output = convert(input);
+//   const rounded = Math.round(output * 1000) /1000;
+
+//   return rounded.toString();
+// }
+
+// const scaleNames ={
+//   c: 'Celsius',
+//   f: 'Fahrenheit'
+// };
+
+// class TemperatureInput extends React.Component {
+//   constructor(props){
+//     super(props);
+//     this.handleChange = this.handleChange.bind(this);
+//   }
+
+//   handleChange(e) {
+//     this.props.onTemperatureChange(e.target.value);
+//     console.log(e);
+//   }
+
+//   render() {
+//     const temperature = this.props.temperature;
+//     const scale = this.props.scale;
+//     return (
+//       <fieldset>
+//         <legend>Informe a temperatura em {scaleNames[scale]}:</legend>
+//         <input value={temperature} onChange={this.handleChange} />
+//       </fieldset>
+//     )
+//   }
+// }
+
+// class Calculator extends React.Component {
+// constructor(props){
+//   super(props);
+//   this.handleCelsiusChange = this.handleCelsiusChange.bind(this);
+//   this.handleFahrenheintChange = this.handleFahrenheintChange.bind(this);
+//   this.state= {temperature: '', scale: 'c'};
+// }
+
+// handleCelsiusChange(temperature){
+//   this.setState({scale: 'c', temperature});
+// }
+
+// handleFahrenheintChange(temperature){
+//   this.setState({scale: 'f', temperature});
+// }
+
+//   render(){
+//     const scale = this.state.scale;
+//     const temperature = this.state.temperature;
+    
+//     const celsius = scale === 'f' ?
+//       tryConvert(temperature, toCelsius) : temperature;
+//     const fahrenheit = scale === 'c' ?
+//       tryConvert(temperature, toFahrenheit) : temperature;
+
+//     return(
+//       <div>
+//         <TemperatureInput 
+//           scale="c" 
+//           temperature={celsius}
+//           onTemperatureChange={this.handleCelsiusChange}
+//           />
+//         <br />
+//         <TemperatureInput 
+//           scale="f" 
+//           temperature={fahrenheit}
+//           onTemperatureChange={this.handleFahrenheintChange}
+//         />
+//         <BoilingVeredict celsius={parseFloat(celsius)} />
+//       </div>
+//     );
+//   }
+// }
+
+// ReactDOM.render(
+//   <Calculator />,
+//   document.getElementById('root')
+// );
 
 // class Reservation extends React.Component{
 //   constructor(props){
