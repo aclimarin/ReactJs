@@ -5,47 +5,196 @@ import './index.css';
 
 //estudar funções callback
 
-function Blog(props){
-  const sidebar = (
-    <ul>
-      {props.posts.map(
-        (post) => 
-        <li key={post.id}>
-          {post.title}
-        </li>
-        )}
-    </ul>
-  );
+class Reservation extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      isGoing: true,
+      numberOfGuests: 2
+    };
 
-  const content = props.posts.map((post) =>
-        <div key={post.id}>
-          <h3>{post.title}</h3>
-          <p>{post.content}</p>
-        </div>
-  );
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
 
-  return(
-    <div>
-      {sidebar}
-      <hr />
-      {content}
-    </div>
-  );
+  handleInputChange(event){
+    const target = event.target;
+    const value = target.name === 'isGoing' ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({[name]: value});
+  }
+
+  render(){
+    return(
+      <form>
+        <label>Estão indo:
+          <input name="isGoing" type="checkbox" checked={this.state.isGoing} onChange={this.handleInputChange} />
+        </label>
+        <br />
+        <label>
+          Numero de Convidados:
+          <input name="numberOfGuests" type="number" value={this.state.numberOfGuests} onChange={this.handleInputChange} />
+        </label>
+      </form>
+    );
+  }
 }
 
-function ListItem(props){
-  return <li>{props.value}</li>;
-}
+ReactDOM.render(
+  <Reservation />,
+  document.getElementById('root')
+);
 
-function NumberList(props){
-  const numbers = props.numbers;
-  return(
-    <ul>
-      {numbers.map((number) =>
-        <ListItem key={number.toString()} value={number} />
-      )}
-    </ul>
-  );
+// class FlavorForm extends React.Component{
+//   constructor(props){
+//     super(props);
+//     this.state = {value: 'coco'};
+//     this.handleChange = this.handleChange.bind(this);
+//     this.handleSubmit = this.handleSubmit.bind(this);
+//   }
+
+//   handleChange(event){
+//     this.setState({value: event.target.value});
+//   }
+
+//   handleSubmit(event){
+//     alert('Seu sabor favorito é: ' + this.state.value);
+//     event.preventDefault();
+//   }
+
+//   render(){
+//     return(
+//       <form onSubmit={this.handleSubmit}>
+//         <label>
+//           Escolha seu sabor favorito:
+//         </label>
+//         <select value={this.state.value} onChange={this.handleChange} >
+//           <option value='laranja'>Laranja</option>
+//           <option value='limao'>Limão</option>
+//           <option value='coco'>Côco</option>
+//           <option value='manga'>Manga</option>
+//         </select>
+//       <input type="submit" value="Enviar" />
+//       </form>
+//     );
+//   }
+// }
+
+// ReactDOM.render(
+//   <FlavorForm />,
+//   document.getElementById('root')
+// );
+
+// class EasyForm extends React.Component{
+//   constructor(props){
+//     super(props);
+//     this.state = {
+//       value: 'Por favor, escreva uma dissertação sobre seu elemento DOM favorito'
+//     };
+//     this.handleChange = this.handleChange.bind(this);
+//     this.handleSubmit = this.handleSubmit.bind(this);
+//   }
+
+//   handleChange(event){
+//     this.setState({value: event.target.value});
+//   }
+
+//   handleSubmit(event){
+//     alert('Uma dissertação foi enviada: ' + this.state.value);
+//     event.preventDefault();
+//   }
+
+//   render(){
+//     return(
+//       <form onSubmit={this.handleSubmit}>
+//         <label>Dissertação:</label>
+//         <textarea value={this.state.value} onChange={this.handleChange} />
+//         <input type="submit" value="Enviar" />    
+//       </form>
+//     );
+//   }
+// }
+
+// ReactDOM.render(
+//   <EasyForm />,
+//   document.getElementById('root')
+// );
+// class NameForm extends React.Component {
+//   constructor(props){
+//     super(props);
+//     this.state = {value: ''};
+
+//     this.handleChange = this.handleChange.bind(this);
+//     this.handleSubmit = this.handleSubmit.bind(this);
+//   }
+
+//   handleChange(event){
+//     this.setState({value: event.target.value});
+//   }
+
+//   handleSubmit(event){
+//     alert('Um nome foi enviado: ' + this.state.value);
+//     event.preventDefault();
+//   }
+
+//   render(){
+//     return(
+//       <form onSubmit={this.handleSubmit}>
+//         <label>
+//           Nome: 
+//         </label>
+//         <input type="text" value={this.state.value} onChange={this.handleChange} />
+//         <input type="submit" value="Enviar" />
+//       </form>
+//     );
+//   }
+// }
+
+// ReactDOM.render(
+//   <NameForm />,
+//   document.getElementById('root')
+// );
+// function Blog(props){
+//   const sidebar = (
+//     <ul>
+//       {props.posts.map(
+//         (post) => 
+//         <li key={post.id}>
+//           {post.title}
+//         </li>
+//         )}
+//     </ul>
+//   );
+
+//   const content = props.posts.map((post) =>
+//         <div key={post.id}>
+//           <h3>{post.title}</h3>
+//           <p>{post.content}</p>
+//         </div>
+//   );
+
+//   return(
+//     <div>
+//       {sidebar}
+//       <hr />
+//       {content}
+//     </div>
+//   );
+// }
+
+// function ListItem(props){
+//   return <li>{props.value}</li>;
+// }
+
+// function NumberList(props){
+//   const numbers = props.numbers;
+//   return(
+//     <ul>
+//       {numbers.map((number) =>
+//         <ListItem key={number.toString()} value={number} />
+//       )}
+//     </ul>
+//   );
 
 
 
@@ -54,17 +203,17 @@ function NumberList(props){
   // return (
   //   <ul>{listItems}</ul>
   // );
-}
+// }
 
-const posts = [
-  {id: 1, title:'Hello World', content:'Welcome to learning ReactJs'},
-  {id: 2, title:'Instalation', content:'You can install react from npm'}
-];
+// const posts = [
+//   {id: 1, title:'Hello World', content:'Welcome to learning ReactJs'},
+//   {id: 2, title:'Instalation', content:'You can install react from npm'}
+// ];
 
-ReactDOM.render(
-  <Blog posts={posts} />,
-  document.getElementById('root')
-);
+// ReactDOM.render(
+//   <Blog posts={posts} />,
+//   document.getElementById('root')
+// );
 
 
 
